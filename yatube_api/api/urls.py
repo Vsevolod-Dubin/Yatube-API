@@ -1,6 +1,6 @@
 # api/urls.py
 
-from django.urls import include, path
+from django.urls import include, path, re_path
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView, TokenVerifyView)
@@ -8,27 +8,25 @@ from rest_framework_simplejwt.views import (TokenObtainPairView,
 from .views import CommentViewSet, FollowViewSet, GroupViewSet, PostViewSet
 
 router = DefaultRouter()
-router.register("v1/posts", PostViewSet, basename="posts")
-router.register("v1/groups", GroupViewSet, basename="groups")
-router.register("v1/follow", FollowViewSet, basename="follow")
+router.register("posts", PostViewSet, basename="posts")
+router.register("groups", GroupViewSet, basename="groups")
+router.register("follow", FollowViewSet, basename="follow")
 
 urlpatterns = [
-    path("", include(router.urls)),
-    path(
-        "v1/posts/<int:post_id>/comments/",
+    path("v1/", include(router.urls)),
+    re_path(
+        r"^v1/posts/(?P<post_id>\d+)/comments/$",
         CommentViewSet.as_view({"get": "list", "post": "create"}),
         name="comment-list",
     ),
-    path(
-        "v1/posts/<int:post_id>/comments/<int:pk>/",
-        CommentViewSet.as_view(
-            {
-                "get": "retrieve",
-                "put": "update",
-                "patch": "partial_update",
-                "delete": "destroy",
-            }
-        ),
+    re_path(
+        r"^v1/posts/(?P<post_id>\d+)/comments/(?P<pk>\d+)/$",
+        CommentViewSet.as_view({
+            "get": "retrieve",
+            "put": "update",
+            "patch": "partial_update",
+            "delete": "destroy",
+        }),
         name="comment-detail",
     ),
     path("v1/jwt/create/", TokenObtainPairView.as_view(), name="jwt-create"),
