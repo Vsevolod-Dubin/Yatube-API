@@ -1,6 +1,7 @@
 # Yatube API
 
-**Yatube API** is a backend service for a blogging platform with posts, groups, comments, and subscriptions.
+**Yatube API** is a RESTful backend service for a social blogging platform.  
+It provides endpoints for user registration, creating posts and comments, following authors, and browsing personalized feeds.
 
 ## Technologies
 
