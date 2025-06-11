@@ -1,6 +1,87 @@
+# Yatube API
+
+**Yatube API** is a backend service for a blogging platform with posts, groups, comments, and subscriptions.
+
+## Technologies
+
+- Python 3.9+
+- Django
+- Django REST Framework
+- Simple JWT
+
+## Installation
+
+```bash
+git clone <repo-url>
+cd yatube_api
+python -m venv env
+source env/bin/activate  # or env\Scripts\activate on Windows
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+## Example Requests
+
+### Get all posts
+```http
+GET /api/v1/posts/
+```
+
+### Create a post
+```http
+POST /api/v1/posts/
+Content-Type: application/json
+
+{
+  "text": "New post",
+  "group": 1
+}
+```
+
+### Get comments for a post
+```http
+GET /api/v1/posts/1/comments/
+```
+
+### Follow a user
+```http
+POST /api/v1/follow/
+Content-Type: application/json
+
+{
+  "following": "username"
+}
+```
+
+### Get JWT tokens
+```http
+POST /api/v1/jwt/create/
+Content-Type: application/json
+
+{
+  "username": "TestUser",
+  "password": "1234567"
+}
+```
+
+## Documentation
+
+After starting the project, API documentation is available at:
+```
+http://localhost:8000/redoc/
+```
+
+## Author
+
+[Vsevolod](https://github.com/Vsevolod-Dubin)
+
+<details>
+<summary>🇷🇺 Нажмите, чтобы раскрыть описание на русском</summary>
+
 # api_final
 
-Yatube API — backend сервис блог-платформы с постами, группами, комментариями и подписками.
+**Yatube API** — backend сервис блог-платформы с постами, группами, комментариями и подписками.
 
 ## Технологии
 
@@ -75,3 +156,5 @@ http://localhost:8000/redoc/
 ## Автор
 
 [Vsevolod](https://github.com/Vsevolod-Dubin)
+
+</details>
